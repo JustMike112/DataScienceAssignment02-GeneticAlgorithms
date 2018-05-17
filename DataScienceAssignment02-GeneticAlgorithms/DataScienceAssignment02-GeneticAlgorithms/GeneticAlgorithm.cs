@@ -112,24 +112,38 @@ namespace DataScienceAssignment02_GeneticAlgorithms
         private double computeFitness(Ind individual)
         {
             // -(Pow(x)) + 7x
-            var fitness = -(Math.Pow(individual.value(), 2)) + 7 * individual.value();
+            var fitness = -(Math.Pow(individual.value(), 2)) + (7 * individual.value());
 
             return fitness;
         }
 
         private Func<Tuple<Ind, Ind>> selectTwoParents(Ind[] population, double[] fitnesses)
         {
-            return () => { return Tuple.Create(new Ind(""), new Ind("")); };
+            return () => { return new Tuple<Ind, Ind>(new Ind(""), new Ind("")); };
         }
 
         private Tuple<Ind, Ind> crossover(Tuple<Ind, Ind> parents)
         {
-            return Tuple.Create(new Ind(""), new Ind(""));
+            return new Tuple<Ind, Ind>(new Ind(""), new Ind(""));
         }
 
         private Ind mutation(Ind indivual, double mutationRate)
         {
-            return new Ind("");
+            StringBuilder mutation = new StringBuilder(indivual.binary);
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (r.NextDouble() < mutationRate)
+                {
+                    if (indivual.binary[i] == '0')
+                        mutation[i] = '1';
+                    else
+                        mutation[i] = '0';
+                }
+            }
+
+            indivual.binary = mutation.ToString();
+            return indivual;
         }
     }
 }
