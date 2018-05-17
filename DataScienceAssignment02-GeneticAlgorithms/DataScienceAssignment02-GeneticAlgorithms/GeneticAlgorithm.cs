@@ -97,7 +97,15 @@ namespace DataScienceAssignment02_GeneticAlgorithms
         private Ind createIndividual()
         {
             string individual = "";
-            
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (r.NextDouble() > 0.5)
+                    individual += 1;
+                else
+                    individual += 0;
+            }
+
             return new Ind(individual);
         }
 
