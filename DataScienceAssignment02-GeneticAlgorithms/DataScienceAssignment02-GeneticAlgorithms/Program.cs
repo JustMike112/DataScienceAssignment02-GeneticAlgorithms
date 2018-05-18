@@ -18,13 +18,30 @@ namespace DataScienceAssignment02_GeneticAlgorithms
             Func<Ind, double, Ind> mutation;                            ==> input is one individual and mutation rate, output is the mutated individual
             */
 
-            //GeneticAlgorithm fakeProblemGA = new GeneticAlgorithm(0.0, 0.0, false, 0, 0); // CHANGE THE PARAMETERS VALUES
-            //var solution = fakeProblemGA.Run();
-            //Console.WriteLine("Solution: ");
-            //Console.WriteLine(solution);
+            GeneticAlgorithm GA = new GeneticAlgorithm(0.85, 0.01, true, 100, 10); // CHANGE THE PARAMETERS VALUES
+            var solution = GA.Run();
+            Console.WriteLine("Best Individual from the last population " + solution.binary);
 
-            Ind individual = new Ind("01010");
-            Console.WriteLine(individual.binary + " " + individual.value());
+            //Ind individual = new Ind("01110");
+
+            //double[] fin = { 0, 1, 2, 3, 4, -14, -222, 250 };
+            //var small = fin.OrderBy(x => x).Last();
+
+            //var lowestFitness = fin.OrderBy(x => x).First();
+            //var highestFitness = fin.OrderBy(x => x).Last();
+            //double[] news = new double[fin.Length];
+
+            //for (var i = 0; i < fin.Length; i++)
+            //{
+            //    news[i] = (fin[i] - lowestFitness) / (highestFitness - lowestFitness);
+            //}
+
+            //Console.WriteLine(individual.binary + " " + individual.value() + " " + individual.binary.Substring(individual.binary.Length /2));
+            //Console.WriteLine(small);
+            //for (int i = 0; i < news.Length; i++)
+            //{
+            //    Console.WriteLine(news[i]);
+            //}
             Console.ReadLine();
         }
     }

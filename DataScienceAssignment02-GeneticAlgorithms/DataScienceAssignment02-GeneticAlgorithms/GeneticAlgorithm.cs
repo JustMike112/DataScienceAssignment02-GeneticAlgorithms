@@ -83,6 +83,8 @@ namespace DataScienceAssignment02_GeneticAlgorithms
 
             // recompute the fitnesses on the final population and return the best individual
             var finalFitnesses = Enumerable.Range(0, populationSize).Select(i => computeFitness(currentPopulation[i])).ToArray();
+            Console.WriteLine("Average Fitness of last population " + finalFitnesses.Average());
+            Console.WriteLine("Best Fitness of last population " + finalFitnesses.OrderBy(x => x).Last());
             return currentPopulation.Select((individual, index) => new Tuple<Ind, double>(individual, finalFitnesses[index])).OrderByDescending(tuple => tuple.Item2).First().Item1;
         }
 
@@ -120,9 +122,36 @@ namespace DataScienceAssignment02_GeneticAlgorithms
         /* Roulette selection */
         private Func<Tuple<Ind, Ind>> selectTwoParents(Ind[] population, double[] fitnesses)
         {
+            // Normalize the values
+            var lowestFitness = fitnesses.OrderBy(x => x).First();
+            var highestFitness = fitnesses.OrderBy(x => x).Last();
+            double[] normalizedFitnesses = new double[fitnesses.Length];
+
+            // All values are between 0-1
+            for (var i = 0; i < fitnesses.Length; i++)
+                normalizedFitnesses[i] = (fitnesses[i] - lowestFitness) / (highestFitness - lowestFitness);
+
+            var cumProbability = 0.0;
+            var totalProbability = normalizedFitnesses.Sum();
+
+            var avgNormalizedFitnesses = Enumerable.Range(0, populationSize).Select(i => normalizedFitnesses[i] / totalProbability).ToArray();
+
             Ind parent1 = new Ind();
             Ind parent2 = new Ind();
-            
+
+            for (int i = 0; i < populationSize; i++)
+            {
+                cumProbability += normalizedFitnesses[i];
+                if (cumProbability >= r.NextDouble())
+                    if (parent1.value() == 0)
+                        parent1 = population[i];
+                    else
+                    {
+                        parent2 = population[i];
+                        break;
+                    }
+            }
+
             return () => { return new Tuple<Ind, Ind>(parent1, parent2); };
         }
 
