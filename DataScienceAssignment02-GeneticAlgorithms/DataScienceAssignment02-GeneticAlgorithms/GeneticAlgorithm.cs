@@ -117,33 +117,45 @@ namespace DataScienceAssignment02_GeneticAlgorithms
             return fitness;
         }
 
+        /* Roulette selection */
         private Func<Tuple<Ind, Ind>> selectTwoParents(Ind[] population, double[] fitnesses)
         {
-            return () => { return new Tuple<Ind, Ind>(new Ind(""), new Ind("")); };
+            Ind parent1 = new Ind();
+            Ind parent2 = new Ind();
+            
+            return () => { return new Tuple<Ind, Ind>(parent1, parent2); };
         }
 
+        // Create 2 childs from the parents
         private Tuple<Ind, Ind> crossover(Tuple<Ind, Ind> parents)
         {
-            return new Tuple<Ind, Ind>(new Ind(""), new Ind(""));
+            int cutoff = parents.Item1.binary.Length / 2;
+            Ind child1 = new Ind();
+            Ind child2 = new Ind();
+
+            child1.binary = parents.Item1.binary.Substring(0, cutoff) + parents.Item2.binary.Substring(cutoff);
+            child2.binary = parents.Item2.binary.Substring(0, cutoff) + parents.Item1.binary.Substring(cutoff);
+
+            return new Tuple<Ind, Ind>(child1, child2);
         }
 
-        private Ind mutation(Ind indivual, double mutationRate)
+        private Ind mutation(Ind individual, double mutationRate)
         {
-            StringBuilder mutation = new StringBuilder(indivual.binary);
+            StringBuilder mutation = new StringBuilder(individual.binary);
 
             for (int i = 0; i < 5; i++)
             {
                 if (r.NextDouble() < mutationRate)
                 {
-                    if (indivual.binary[i] == '0')
+                    if (individual.binary[i] == '0')
                         mutation[i] = '1';
                     else
                         mutation[i] = '0';
                 }
             }
 
-            indivual.binary = mutation.ToString();
-            return indivual;
+            individual.binary = mutation.ToString();
+            return individual;
         }
     }
 }

@@ -10,6 +10,8 @@ namespace DataScienceAssignment02_GeneticAlgorithms
     {
         public string binary;
 
+        public Ind() { }
+
         public Ind(string encoding)
         {
             this.binary = encoding;
