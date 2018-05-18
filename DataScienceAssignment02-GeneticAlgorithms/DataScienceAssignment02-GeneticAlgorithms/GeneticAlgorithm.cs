@@ -83,6 +83,7 @@ namespace DataScienceAssignment02_GeneticAlgorithms
 
             // recompute the fitnesses on the final population and return the best individual
             var finalFitnesses = Enumerable.Range(0, populationSize).Select(i => computeFitness(currentPopulation[i])).ToArray();
+            Console.WriteLine("// After running the Genetic Algorithm \\");
             Console.WriteLine("Average Fitness of last population " + finalFitnesses.Average());
             Console.WriteLine("Best Fitness of last population " + finalFitnesses.OrderBy(x => x).Last());
             return currentPopulation.Select((individual, index) => new Tuple<Ind, double>(individual, finalFitnesses[index])).OrderByDescending(tuple => tuple.Item2).First().Item1;

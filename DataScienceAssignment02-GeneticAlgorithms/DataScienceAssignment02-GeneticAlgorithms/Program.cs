@@ -10,38 +10,25 @@ namespace DataScienceAssignment02_GeneticAlgorithms
     {
         static void Main(string[] args)
         {
-            /* FUNCTIONS TO DEFINE (for each problem):
-            Func<Ind> createIndividual;                                 ==> input is nothing, output is a new individual
-            Func<Ind,double> computeFitness;                            ==> input is one individual, output is its fitness
-            Func<Ind[],double[],Func<Tuple<Ind,Ind>>> selectTwoParents; ==> input is an array of individuals (population) and an array of corresponding fitnesses, output is a function which (without any input) returns a tuple with two individuals (parents)
-            Func<Tuple<Ind, Ind>, Tuple<Ind, Ind>> crossover;           ==> input is a tuple with two individuals (parents), output is a tuple with two individuals (offspring/children)
-            Func<Ind, double, Ind> mutation;                            ==> input is one individual and mutation rate, output is the mutated individual
-            */
+            Console.WriteLine("|| Genetic Algorithms ||");
+            Console.WriteLine("");
+            Console.WriteLine("The crossover and mutation rate should be between 0 and 1, where crossover should be big and mutation should be small");
+            Console.WriteLine("");
+            // Aks the user's info
+            Console.Write("How large should the population be: ");
+            var population = int.Parse(Console.ReadLine());
+            Console.Write("What do you want the crossover rate be: ");
+            var crossover = double.Parse(Console.ReadLine());
+            Console.Write("What do you want the mutation rate be: ");
+            var mutation = double.Parse(Console.ReadLine());
+            Console.Write("How many iterations would you like to make: ");
+            var iterations = int.Parse(Console.ReadLine());
+            Console.WriteLine("");
+            
 
-            GeneticAlgorithm GA = new GeneticAlgorithm(0.85, 0.01, true, 100, 10); // CHANGE THE PARAMETERS VALUES
+            GeneticAlgorithm GA = new GeneticAlgorithm(crossover, mutation, true, population, iterations); // CHANGE THE PARAMETERS VALUES
             var solution = GA.Run();
             Console.WriteLine("Best Individual from the last population " + solution.binary);
-
-            //Ind individual = new Ind("01110");
-
-            //double[] fin = { 0, 1, 2, 3, 4, -14, -222, 250 };
-            //var small = fin.OrderBy(x => x).Last();
-
-            //var lowestFitness = fin.OrderBy(x => x).First();
-            //var highestFitness = fin.OrderBy(x => x).Last();
-            //double[] news = new double[fin.Length];
-
-            //for (var i = 0; i < fin.Length; i++)
-            //{
-            //    news[i] = (fin[i] - lowestFitness) / (highestFitness - lowestFitness);
-            //}
-
-            //Console.WriteLine(individual.binary + " " + individual.value() + " " + individual.binary.Substring(individual.binary.Length /2));
-            //Console.WriteLine(small);
-            //for (int i = 0; i < news.Length; i++)
-            //{
-            //    Console.WriteLine(news[i]);
-            //}
             Console.ReadLine();
         }
     }
